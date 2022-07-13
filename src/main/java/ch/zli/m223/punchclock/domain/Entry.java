@@ -2,6 +2,7 @@ package ch.zli.m223.punchclock.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Entry {
@@ -15,6 +16,21 @@ public class Entry {
 
     @Column(nullable = false)
     private LocalDateTime checkOut;
+
+    @ManyToOne()
+    private Category category;
+
+    @ManyToOne()
+    private User user;
+
+    public Category getCategory(){
+        return category;
+    }
+
+    public void setCategory(Category category){
+        this.category = category;
+    }
+
 
     public Long getId() {
         return id;
