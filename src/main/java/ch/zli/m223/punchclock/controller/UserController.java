@@ -14,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import ch.zli.m223.punchclock.domain.Entry;
@@ -39,8 +40,15 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Signup", description = "")
-    public Entry signup(User user) {
+    public User signup(@RequestBody User user) {
        return userService.signupUser(user);
     }
 
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Login", description = "")
+    public boolean login(@RequestBody User user) {
+       return userService.loginUser(user);
+    }
 }

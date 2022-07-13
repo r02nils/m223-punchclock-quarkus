@@ -22,5 +22,4 @@ public class AuthenticationService {
             .sign();
         return token;
     }
-
 }

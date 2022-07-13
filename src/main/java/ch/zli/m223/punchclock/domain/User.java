@@ -19,9 +19,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy =  "category", fetch = FetchType.LAZY)
-    private List<Entry> entries;
-
 
     public Long getId() {
         return id;
@@ -31,11 +28,11 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setName(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
@@ -52,6 +49,12 @@ public class User {
     }
 
     public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void createUser(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
         this.password = password;
     }
 }
