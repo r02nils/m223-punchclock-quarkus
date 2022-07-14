@@ -36,23 +36,26 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="" method="post">
+    <form id="loginForm">
         <h2 class="text-center">Log in</h2>
         <div class="form-group">
-            <input name="name" type="text" class="form-control" placeholder="Username" required="required">
+            <input name="username" type="text" class="form-control" placeholder="Username" required="required">
         </div>
         <div class="form-group">
-            <input name="myPassword" type="password" class="form-control" placeholder="Password" required="required">
+            <input name="password" type="password" class="form-control" placeholder="Password" required="required">
         </div>
         <div class="form-group">
-            <input name="btn" type="submit" class="btn btn-primary btn-block" value="submit">
+            <input type="submit" class="btn btn-primary btn-block" value="submit">
         </div>
         <div class="clearfix">
             <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
             <a href="#" class="float-right">Forgot Password?</a>
         </div>
+        <br>
+        <p id="error" style="color:red"></p>
     </form>
     <p class="text-center"><a href="signup.html">Create an Account</a></p>
 </div>
+<script src="login.js"></script>
 </body>
 </html>

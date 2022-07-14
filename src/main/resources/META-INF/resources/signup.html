@@ -36,26 +36,29 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="" method="post">
+    <form action="" method="post" id="signupForm">
         <h2 class="text-center">Register</h2>
         <div class="form-group">
-            <input name="name" type="text" class="form-control" placeholder="Username" required="required">
+            <input name="username" type="text" class="form-control" placeholder="Username" required="required">
         </div>
         <div class="form-group">
             <input name="email" type="email" class="form-control" placeholder="Email" required="required">
         </div>
         <div class="form-group">
-            <input name="myPassword" type="password" class="form-control" placeholder="Password" required="required">
+            <input name="password" type="password" class="form-control" placeholder="Password" required="required">
         </div>
         <div class="form-group">
-            <input name="btn" type="submit" class="btn btn-primary btn-block" value="submit">
+            <input type="submit" class="btn btn-primary btn-block" value="submit">
         </div>
         <div class="clearfix">
             <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
             <a href="#" class="float-right">Forgot Password?</a>
         </div>
+        <br>
+        <p id="error" style="color:red"></p>
     </form>
     <p class="text-center"><a href="login.html">Log in</a></p>
 </div>
+<script src="signup.js"></script>
 </body>
 </html>

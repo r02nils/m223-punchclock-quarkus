@@ -1,14 +1,15 @@
 const URL = 'http://localhost:8080';
 let entries = [];
 
-const login = (e) =>{
+const signup = (e) =>{
     e.preventDefault();
     const formData = new FormData(e.target);
     const user = {};
     user['username'] = formData.get('username');
+    user['email'] = formData.get('email');
     user['password'] = formData.get('password');
 
-    fetch(`${URL}/users/login`, {
+    fetch(`${URL}/users`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,22 +19,20 @@ const login = (e) =>{
         result.json().then((user) => {
             console.log(user);
             if(user == 1){
-                window.location = "index.html";
+                window.location = "login.html";
+
             }
             else if(user == -1){
-                document.getElementById('error').innerText = "wrong password";
+                document.getElementById('error').innerText = "password must have atleast 8 characters";
             }
             else if(user == -2){
-                document.getElementById('error').innerText = "user does not exist";
-            }
-            else{
-                document.getElementById('error').innerText = "error";
+                document.getElementById('error').innerText = "username must have atleast 3 characters";
             }
         });
     });
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-    const loginForm = document.querySelector('#loginForm');
-    loginForm.addEventListener('submit', login);
+    const loginForm = document.querySelector('#signupForm');
+    loginForm.addEventListener('submit', signup);
 });

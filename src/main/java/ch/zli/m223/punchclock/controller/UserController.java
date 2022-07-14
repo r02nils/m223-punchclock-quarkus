@@ -37,10 +37,9 @@ public class UserController {
     }
 
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Signup", description = "")
-    public User signup(@RequestBody User user) {
+    public int signup(@RequestBody User user) {
        return userService.signupUser(user);
     }
 
@@ -48,7 +47,7 @@ public class UserController {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Operation(summary = "Login", description = "")
-    public boolean login(@RequestBody User user) {
+    public int login(@RequestBody User user) {
        return userService.loginUser(user);
     }
 }
