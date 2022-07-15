@@ -19,6 +19,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy =  "user", fetch = FetchType.LAZY)
+    private List<Entry> entries;
+
 
     public Long getId() {
         return id;
