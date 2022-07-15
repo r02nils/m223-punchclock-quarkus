@@ -16,8 +16,9 @@ const login = (e) =>{
         body: JSON.stringify(user)
     }).then((result) => {
         result.json().then((user) => {
-            console.log(user);
+            console.log(user.headers);
             if(user == 1){
+                window.localStorage.setItem("token",result.headers.get("token"));
                 window.location = "index.html";
             }
             else if(user == -1){

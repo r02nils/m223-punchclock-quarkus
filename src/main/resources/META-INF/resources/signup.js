@@ -28,6 +28,9 @@ const signup = (e) =>{
             else if(user == -2){
                 document.getElementById('error').innerText = "username must have atleast 3 characters";
             }
+            else{
+                document.getElementById('error').innerText = "error";
+            }
         });
     });
 }

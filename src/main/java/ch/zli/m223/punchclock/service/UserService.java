@@ -4,8 +4,14 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
+
+import org.eclipse.microprofile.jwt.Claims;
+
 import ch.zli.m223.punchclock.domain.User;
+import io.quarkus.vertx.web.Body;
 
 @ApplicationScoped
 public class UserService {
@@ -29,29 +35,54 @@ public class UserService {
         return 1;
     }
 
-    @Transactional
-    public int loginUser(User u) {
+    @Transactional 
+    public int checkIfLoggedIn(String myToken) {
+        System.out.println(myToken);
+        System.out.println("---");
+        AuthenticationService authenticationService = new AuthenticationService();
         List<User> users = findAll();
         for (User user : users) {
-            System.out.println(user.getId());
-            System.out.println(user.getUsername());
-            System.out.println(user.getEmail());
-            System.out.println(user.getPassword());
+            String token = authenticationService.GenerateValidJwtToken(user.getUsername());
+            System.out.println(token);
+            System.out.println("---");
+            if(token.equals(myToken)){
+                return 1;
+            }
+        }
+
+        return -1;
+    }
+
+    @Transactional
+    public Response loginUser(User u) {
+        List<User> users = findAll();
+        for (User user : users) {
             if(user.getUsername().equals(u.getUsername())){
                 if (BCrypt.checkpw(u.getPassword(), user.getPassword())){
                     System.out.println("It matches");
                 }
                 else{
                     System.out.println("It does not match");
-                    return -1;
+                    return Response
+                    .ok(-1)
+                    .header("token", "")
+                    .build();
                 }
                 entityManager.persist(user);
                 AuthenticationService authenticationService = new AuthenticationService();
-                authenticationService.GenerateValidJwtToken(u.getUsername());
-                return 1;
+                String token = authenticationService.GenerateValidJwtToken(u.getUsername());
+
+                
+                return Response
+                .ok(1)
+                .header("token", token)
+                .build();
             }
         }
-        return -2;
+        return Response
+        .ok(-2)
+        .header("token", "")
+        .build();
     }
 
     @SuppressWarnings("unchecked")
