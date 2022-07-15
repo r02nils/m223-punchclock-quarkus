@@ -1,5 +1,7 @@
 package ch.zli.m223.punchclock.domain;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,8 +14,8 @@ public class Gender {
     @Column(nullable = false)
     private String gender;
 
-    @ManyToOne()
-    private User user;
+    @OneToMany(mappedBy =  "gender", fetch = FetchType.LAZY)
+    private List<User> users;
 
     public Long getId() {
         return id;

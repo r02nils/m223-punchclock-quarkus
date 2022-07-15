@@ -5,6 +5,21 @@ const dateAndTimeToDate = (dateString, timeString) => {
     return new Date(`${dateString}T${timeString}`).toISOString();
 };
 
+const loggedIn = () => {
+    fetch(`${URL}/users/login/check`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(entry)
+    }).then((result) => {
+        result.json().then((entry) => {
+            entries.push(entry);
+            renderEntries();
+        });
+    });
+}
+
 const createEntry = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -15,7 +30,8 @@ const createEntry = (e) => {
     fetch(`${URL}/entries`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'jwt': window.localStorage.getItem("token")
         },
         body: JSON.stringify(entry)
     }).then((result) => {
@@ -87,6 +103,11 @@ const indexEntries = () => {
     });
     renderEntries();
 };
+
+function logout(){
+    window.localStorage.clear();
+    window.location = "login.html";
+}
 
 const createCell = (text) => {
     const cell = document.createElement('td');

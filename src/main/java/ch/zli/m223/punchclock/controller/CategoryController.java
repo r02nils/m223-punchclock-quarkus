@@ -22,6 +22,12 @@ import ch.zli.m223.punchclock.domain.Entry;
 import ch.zli.m223.punchclock.service.CategoryService;
 import ch.zli.m223.punchclock.service.EntryService;
 
+/**
+ * EntryController
+ * @author Nils Rothenbühler
+ * @version 1.0
+ * @date: 2022-07-15
+ */
 @Path("/categories")
 @Tag(name = "Category", description = "Handling of categories")
 public class CategoryController {
@@ -29,6 +35,10 @@ public class CategoryController {
     @Inject
     CategoryService categoryService;
 
+    /**
+     * gibt alle Kategorien zurück
+     * @return
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "List all Categories", description = "")
@@ -36,6 +46,11 @@ public class CategoryController {
         return categoryService.findAll();
     }
 
+    /**
+     * fügt eine Kategorie hinzu
+     * @param name
+     * @return
+     */
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{name}")

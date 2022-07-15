@@ -19,6 +19,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne()
+    private Gender gender;
+
     @OneToMany(mappedBy =  "user", fetch = FetchType.LAZY)
     private List<Entry> entries;
 
@@ -55,9 +58,10 @@ public class User {
         this.password = password;
     }
 
-    public void createUser(String username, String email, String password) {
+    public void createUser(String username, String email, String password, Gender gender) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.gender = gender;
     }
 }

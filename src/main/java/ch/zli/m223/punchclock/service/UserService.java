@@ -1,14 +1,18 @@
 package ch.zli.m223.punchclock.service;
+import java.util.Base64;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.json.JsonException;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.microprofile.jwt.Claims;
+import org.jose4j.json.internal.json_simple.JSONObject;
+import org.json.JSONException;
 
 import ch.zli.m223.punchclock.domain.User;
 import io.quarkus.vertx.web.Body;
@@ -35,21 +39,17 @@ public class UserService {
         return 1;
     }
 
-    @Transactional 
-    public int checkIfLoggedIn(String myToken) {
-        System.out.println(myToken);
-        System.out.println("---");
+    public int checkIfLoggedIn(String myToken) throws JsonException, JSONException {
         AuthenticationService authenticationService = new AuthenticationService();
+        String name = authenticationService.getUsernameFromJwtToken(myToken);
+        System.out.println(name);
         List<User> users = findAll();
+
         for (User user : users) {
-            String token = authenticationService.GenerateValidJwtToken(user.getUsername());
-            System.out.println(token);
-            System.out.println("---");
-            if(token.equals(myToken)){
+            if(name.equals(user.getUsername())){
                 return 1;
             }
         }
-
         return -1;
     }
 
